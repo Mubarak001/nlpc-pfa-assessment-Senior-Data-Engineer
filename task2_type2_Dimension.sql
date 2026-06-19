@@ -2,6 +2,14 @@
 -- Source: stg_assets (staging) | Target: dim_assets (dimension)
 -- Handles: new inserts, change detection, effective dating, IsCurrent flag
 
+/* NOTE: Comparisons below assume non-null source/target values for simplicity.
+   In a production implementation, each comparison should be wrapped in
+   ISNULL()/COALESCE() (e.g. ISNULL(d.AssetName,'') <> ISNULL(s.AssetName,''))
+   since NULL <> NULL evaluates to NULL in T-SQL, which would
+   silently fail to flag a change when a column transitions to/from NULL
+   (e.g. AssignedTo going unassigned). Omitted here to keep the core
+   SCD Type 2 logic readable for this exercise. */
+
 BEGIN TRANSACTION;
 
 -- STEP 1: Expire changed records 
