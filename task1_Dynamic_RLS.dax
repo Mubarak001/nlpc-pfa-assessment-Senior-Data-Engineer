@@ -1,0 +1,18 @@
+// Task 1: Dynamic Row-Level Security (RLS) – DAX Filter Expression
+// Table: dim_employee | Columns: EmployeeKey, EmployeeEmail, ManagerKey, ParentPath
+// Enforces that a logged-in manager sees their own row + all subordinates in hierarchy
+
+[EmployeeEmail] = USERPRINCIPALNAME()
+    || PATHCONTAINS(
+        [ParentPath],
+        LOOKUPVALUE(
+            dim_employee[EmployeeKey],
+            dim_employee[EmployeeEmail], USERPRINCIPALNAME()
+        )
+    )
+
+// Notes:
+// - USERPRINCIPALNAME() resolves the logged-in user via on-prem Windows Authentication
+// - LOOKUPVALUE() maps the user's email to their EmployeeKey
+// - PATHCONTAINS() walks the ParentPath hierarchy to include all direct/indirect reports
+// - On-prem requires Kerberos/NTLM; fallback to USERNAME() for domain\username format if needed
