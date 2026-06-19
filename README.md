@@ -8,6 +8,6 @@
 
 | File | Task |
 |------|------|
-| `task1_dynamic_rls.dax` | Dynamic RLS with DAX using PATHCONTAINS and USERPRINCIPALNAME() |
-| `task2_scd_type2.sql` | T-SQL SCD Type 2 pipeline for asset register ingestion |
-| `task3_deployment_script.ps1` | PowerShell REST API script to promote artefacts from /Dev to /Test |
+| `task1_dynamic_RLS.dax` | Dynamic RLS with DAX using PATHCONTAINS and USERPRINCIPALNAME() |
+| `task2_type2_Dimension.sql` | T-SQL SCD Type 2 pipeline for asset register ingestion |
+| `task3_script_deployment.ps1` | PowerShell REST API script to promote artefacts from /Dev to /Test |
